@@ -1,0 +1,467 @@
+/* Generali */
+:root {
+  --primary-color: #4CAF50; /* Verde */
+  --secondary-color: #2196F3; /* Blu */
+  --accent-color: #FFC107; /* Giallo */
+  --correct-color: #4CAF50;
+  --wrong-color: #F44336;
+  --bg-home-start: #e0f2f7; /* Azzurro chiaro */
+  --bg-home-end: #c8e6c9; /* Verde chiaro */
+  --text-color: #333; /* Colore testo generale: scuro */
+  --text-light-color: #f8f8f8; /* Colore testo chiaro (es. sui bottoni colorati) */
+  --card-bg: #ffffff; /* Sfondo card/contenitori: bianco */
+  --border-radius: 12px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------- Reset -------------------- */
+*{box-sizing:border-box;margin:0;padding:0}
+
+body {
+  font-family: 'Roboto', sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; /* Fallback fonts */
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: var(--text-color); /* Testo generale scuro */
+  overflow-x: hidden;
+  background: linear-gradient(135deg, var(--bg-home-start), var(--bg-home-end));
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* Utilità */
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Sezioni principali */
+section {
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  background-color: var(--card-bg); /* Sfondo bianco per le sezioni */
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* ========== HOME ========== */
+#home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  max-width: none;
+}
+
+#quiz-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.quiz-card {
+  color: var(--text-light-color); /* Testo chiaro per la sezione TOP della card */
+  padding: 0; /* Padding gestito da top/bottom */
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizione per hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  flex: 1 1 calc(33.333% - 40px);
+  max-width: 280px;
+  box-sizing: border-box;
+  overflow: hidden; /* Assicura che i bordi arrotondati funzionino */
+}
+
+/* Colori per la sezione TOP delle card (qui c'è l'H3 del titolo del quiz) */
+.quiz-card .top {
+    width: 100%;
+    padding: 1.6rem 1rem;
+    color: #fff; /* Testo bianco */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Colori di sfondo saranno applicati dalle classi JS (es. .violet, .teal) */
+}
+
+/* Colori di sfondo effettivi per il TOP delle card */
+.quiz-card.violet .top { background-color: #7950F2; }
+.quiz-card.teal .top { background-color: #12B886; }
+.quiz-card.orange .top { background-color: #FD7E14; }
+.quiz-card.yellow .top { background-color: #FAB005; }
+.quiz-card.red .top { background-color: #FA5252; }
+
+
+.quiz-card .bottom {
+    background-color: var(--card-bg); /* Sfondo bianco per il bottom */
+    color: var(--text-color); /* Testo scuro sul bottom */
+    width: 100%;
+    padding: .9rem;
+    text-align: center;
+    font-size: 1.1em; /* Dimensione testo "Seleziona" */
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombra leggera */
+}
+
+.quiz-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Stili specifici per la card della Prova Finale (home page) */
+.quiz-card.final .top {
+  background-color: #616161; /* Grigio scuro per Prova Finale */
+  color: var(--text-light-color);
+}
+
+.quiz-card.final:hover .top {
+  background-color: #424242;
+}
+
+/* ========== QUIZ PLAY ========== */
+#quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  animation: fadeIn 0.5s ease-out;
+  color: var(--text-color); /* Testo scuro di default per i quiz standard */
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px; /* Spazio sotto l'header */
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#quiz-title {
+  font-size: 1.8em;
+  color: var(--primary-color);
+  margin: 0;
+  text-align: left;
+  flex-grow: 1;
+}
+
+#timer {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--wrong-color); /* Rosso per il timer */
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8px 15px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 5;
+}
+
+/* Nuovo stile per il contatore delle domande */
+.question-info {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #666; /* Un grigio leggermente più chiaro per non confonderlo con la domanda */
+    margin-top: -10px; /* Sposta più vicino all'header */
+    margin-bottom: 15px; /* Spazio sotto il contatore e sopra la domanda */
+    text-align: center;
+}
+/* Stili per la modalità finale (body.final-mode) */
+body.final-mode {
+  background: linear-gradient(135deg, #424242, #212121) !important;
+  color: #f8f8f8 !important;
+}
+
+body.final-mode #quiz-container {
+    background-color: #333;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    color: #E0E0E0; /* Testo chiaro per le domande e feedback nella finale */
+}
+
+body.final-mode #quiz-container #quiz-title {
+  color: #BDBDBD;
+}
+
+body.final-mode #quiz-container .btn {
+  background-color: #555;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.final-mode #quiz-container .btn:hover {
+  background-color: #666;
+  transform: none;
+}
+
+body.final-mode #quiz-container .feedback.correct {
+  color: #81C784;
+}
+
+body.final-mode #quiz-container .feedback.wrong {
+  color: #E57373;
+}
+
+body.final-mode #quiz-container .nav-group .btn {
+  background-color: #555;
+  color: #fff;
+}
+
+body.final-mode #quiz-container #timer {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #FFCDD2;
+}
+
+/* Colore testo domanda in modalità finale */
+body.final-mode #question-text {
+  color: #E0E0E0 !important; /* Forza il colore chiaro per la domanda nella finale */
+}
+body.final-mode .question-info {
+    color: #BDBDBD !important; /* Colore chiaro anche per il contatore in finale */
+}
+
+
+#question-text {
+  font-size: 1.5em;
+  margin-bottom: 20px; /* Spazio sotto la domanda */
+  line-height: 1.6;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-color); /* Assicurati che sia scuro per quiz standard */
+}
+
+.btn-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  justify-content: center;
+  position: relative;
+}
+
+.btn {
+  padding: 18px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  max-width: 200px;
+}
+
+.btn.true {
+  background-color: var(--secondary-color);
+  color: var(--text-light-color);
+}
+
+.btn.true:hover {
+  background-color: #1976D2;
+  transform: translateY(-3px);
+}
+
+.btn.false {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+.btn.false:hover {
+  background-color: #FFB300;
+  transform: translateY(-3px);
+}
+
+.btn.secondary {
+  background-color: #B0BEC5;
+  color: var(--text-color);
+  flex: none;
+  width: auto;
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
+.btn.secondary:hover {
+  background-color: #90A4AE;
+  transform: translateY(-2px);
+}
+
+.feedback {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-top: -10px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.feedback.correct {
+  color: var(--correct-color);
+  animation: popIn 0.3s ease-out;
+}
+
+.feedback.wrong {
+  color: var(--wrong-color);
+  animation: popIn 0.3s ease-out;
+}
+
+.nav-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+#next-btn {
+  background-color: var(--primary-color);
+  color: var(--text-light-color);
+}
+
+#next-btn:hover {
+  background-color: #388E3C;
+}
+
+#quit-btn {
+  background-color: #9E9E9E;
+  color: var(--text-light-color);
+  margin-left: auto;
+}
+
+#quit-btn:hover {
+  background-color: #757575;
+}
+
+
+/* Animazioni */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  80% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes wiggle {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Reazioni visive (solo per quiz non-finale) */
+.btn.flash-good {
+  background-color: var(--correct-color) !important;
+  color: var(--text-light-color) !important;
+}
+
+.btn.flash-bad {
+  background-color: var(--wrong-color) !important;
+  color: var(--text-light-color) !important;
+}
+
+.fx-icon {
+  position: absolute;
+  font-size: 2rem;
+  pointer-events: none;
+  animation: popIn .4s ease-out forwards;
+  z-index: 10;
+}
+
+
+/* Media Queries per reattività */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  section {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    max-width: 100%;
+    font-size: 1.1em;
+  }
+
+  #quiz-title {
+    font-size: 1.5em;
+  }
+
+  #question-text {
+    font-size: 1.3em;
+  }
+
+  .nav-group {
+    flex-direction: column;
+  }
+
+  #quit-btn {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+/* Material Symbols Adjustments */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+}

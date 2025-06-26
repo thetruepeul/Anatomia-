@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quiz Anatomia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <section id="home">
+        <h1 class="visually-hidden">Seleziona un quiz</h1>
+        <div id="quiz-list" class="grid"></div>
+    </section>
+
+    <section id="quiz-container" class="hidden">
+        <header class="quiz-header">
+            <h2 id="quiz-title"></h2>
+            <span id="timer" class="hidden"></span>
+        </header>
+        
+        <p id="question-counter" class="question-info"></p> 
+        
+        <p id="question-text"></p>
+
+        <div class="btn-group">
+            <button id="true-btn" class="btn true">Vero</button>
+            <button id="false-btn" class="btn false">Falso</button>
+        </div>
+
+        <p id="feedback" class="feedback"></p>
+
+        <div class="nav-group">
+            <button id="next-btn" class="btn secondary hidden">Prossima&nbsp;→</button>
+            <button id="quit-btn" class="btn secondary">Torna alla Home</button>
+        </div>
+    </section>
+
+    <section id="result-container" class="hidden">
+        <p id="result-text"></p>
+        <button id="home-btn" class="btn primary">Torna alla Home</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
